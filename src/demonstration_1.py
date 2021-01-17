@@ -20,6 +20,41 @@ Output: -1
 Explanation:
 There is no index that satisfies the conditions in the problem statement.
 """
-def pivot_index(nums):
-    # Your code here
 
+
+def pivot_index_old(nums):  # O(n^2)
+    for index, each in enumerate(nums):     # O(n)
+        right_val = sum(nums[index + 1:])   # O(n/2)
+        left_val = sum(nums[:index])        # O(n/2)
+        if left_val == right_val:
+            return index
+    return -1
+
+
+def pivot_index_left_right(nums):  # O(n)
+    l_sum = 0
+    r_sum = sum(nums[1:])
+    for index in range(len(nums)):
+        if l_sum == r_sum:
+            return index
+        l_sum += nums[index]
+        if (index + 1 == len(nums)):
+            r_sum = 0
+        else:
+            r_sum -= nums[index+1]
+    return -1
+
+
+def pivot_index(nums):  # O(n)
+    total_sum = sum(nums)
+    left_sum = 0
+    for index in range(len(nums)):
+        right_sum = total_sum - left_sum - nums[index]
+        if left_sum == right_sum:
+            return index
+        left_sum += nums[index]
+    return -1
+
+
+print(pivot_index([1, 7, 3, 6, 5, 6]))
+print(pivot_index([1, 2, 3]))
