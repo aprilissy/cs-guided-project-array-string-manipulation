@@ -25,6 +25,21 @@ Input: [9,9,9]
 Output: [1,0,0,0]
 Explanation: The input array represents the integer 999. 999 + 1 = 1000.
 """
-def plus_one(digits):
-    # Your code here
 
+
+def plus_one(digits):
+    i = -1
+    while digits[i] == 9:
+        digits[i] = 0
+        if (abs(i) != len(digits)):
+            i -= 1
+        elif (abs(i) == len(digits)):
+            digits.insert(0, 1)
+            return digits
+    digits[i] += 1
+    return digits
+
+
+print(plus_one([1, 3, 2]))
+print(plus_one([3, 2, 1, 9]))
+print(plus_one([9, 9, 9]))
